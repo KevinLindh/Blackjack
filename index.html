@@ -8,19 +8,26 @@
 		<title>Title in the tab</title>
 
 		<!-- external CSS link -->
-		<link rel="stylesheet" href="css/normalize.css">
 		<link rel="stylesheet" href="css/stylesheet.css">
 	</head>
 	<body>
-
-
-		<button id="dealCards" type="button" name="button">Draw Cards</button>
+		<button id="hit">HIT</button>
+		<button id="stay">STAY</button>
 		<h2 id="credits">Credits:</h2>
-		<button id="addCredits" type="button" name="button" class="hide"></button>
+		<h2 id="betSize"></h2>
+		<button id="increase">Add 100 to bet</button>
+		<button id="decrease">Decrease bet by 100</button>
+		<button id="addCredits" type="button" name="button" class="hide">Add 1000 credits</button>
+		<h2>Dealer</h2>
+		<div id="dealer-Cards">
+		</div>
+		<h3 id="dealer-Count"></h3>
+		<button id="dealCards" type="button" name="button">Draw Cards</button>
+		<h2>Player</h2>
+		<div id="player-Cards">
 
-		<h2>Player 1</h2>
-		<h2>Player 2</h2>
-		<h3>Who won?</h3>
+		</div>
+		<h3 id="player-Count"></h3>
 		
 
 		<script type="text/javascript" src="js/main.js"></script>
