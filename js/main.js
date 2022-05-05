@@ -74,22 +74,23 @@ function getFetch(){
         for(let i = 0; i < 20; i++){
           cardVal.push((data.cards[i]))
         }
-
         //setting the basic cards for player and dealer
         while(count < 2){
           let elem = document.createElement("img"); 
           elem.src = cardVal[count].image
           document.querySelector("#player-Cards").append(elem)
-          playerCount += Number(cardValue(cardVal[count].value))
           count++;
         }
+
+        playerCount = Number(cardValue(cardVal[0].value)) + Number(cardValue(cardVal[1].value));
+        console.log(playerCount);
         while(count < 3){
           let elem = document.createElement("img"); 
           elem.src = cardVal[count].image
           document.querySelector("#dealer-Cards").append(elem)
-          dealerCount += Number(cardValue(cardVal[count].value));
           count++;
         }
+        dealerCount = Number(cardValue(cardVal[2].value));
         //add buttons for stopping and taking more cards
       
         //if player gets blackjack
@@ -135,8 +136,7 @@ function getFetch(){
         document.querySelector("#stay").addEventListener("click", stay);
 
         function stay(){
-          console.log("new")
-          console.log(localStorage.getItem("credits"))
+          console.log(playerCount)
           while(dealerCount < playerCount){
             //call card until blackjack or over
             dealerCount += Number(cardValue(cardVal[count].value));
@@ -145,8 +145,6 @@ function getFetch(){
             document.querySelector("#dealer-Cards").append(elem)
             document.querySelector("#dealer-Count").innerText = `Count: ${dealerCount}`
             count++;
-            console.log(dealerCount);
-            console.log(localStorage.getItem("credits"))
           }
           if(dealerCount > 21){
             win();
@@ -160,7 +158,6 @@ function getFetch(){
           let win = Number(localStorage.getItem("credits")) + bet;
           localStorage.setItem("credits", win);
           document.querySelector("#credits").innerText = `Credits: ${localStorage.getItem("credits")}`
-          console.log(localStorage.getItem("credits"))
         }
 
         function lose(){
@@ -168,7 +165,6 @@ function getFetch(){
           let loss = Number(localStorage.getItem("credits")) - bet;
             localStorage.setItem("credits", loss);
             document.querySelector("#credits").innerText = `Credits: ${localStorage.getItem("credits")}`
-            console.log(localStorage.getItem("credits"))
         }
 
         if(data.remaining < 20){
