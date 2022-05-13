@@ -24,7 +24,7 @@ fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=7')
      .then(data => {
        //setting cardValues into an array and access them later in the program
        deck = data.cards;
-       console.log(deck);
+       document.querySelector("#cardsInDeck").innerText = `Cards left: ${deck.length}`;
      })
      .catch(err => {
          console.log(`error ${err}`)
