@@ -10,6 +10,7 @@ let count = 0;
 let player = 0;
 let dealer = 0;
 let bet = 100;
+let gameActive = false;
 
 let deckId = "";
 let deck = [];
@@ -56,6 +57,10 @@ fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=7')
   }
   
   function increaseBet(){
+    if(gameActive){
+      alert("Cannot change bet in middle of game");
+      return;
+    }
    if(bet < account){
      bet += 100;
      document.querySelector("#betSize").innerText = `Bet Size: ${bet}`;
@@ -63,6 +68,10 @@ fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=7')
   }
  
   function decreaseBet(){
+    if(gameActive){
+      alert("Cannot change bet in middle of game");
+      return;
+    }
     if(bet > 100){
    bet -= 100;
    document.querySelector("#betSize").innerText = `Bet Size: ${bet}`;
@@ -74,6 +83,11 @@ fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=7')
       alert("Game requires reshuffle!");
       return;
     }
+    if(gameActive){
+      alert("Please finish the game before drawing new cards!");
+      return;
+    }
+    gameActive = true;
     document.querySelector("#cardsInDeck").innerText = `Cards left: ${deck.length}`;
    const dealerDOM = document.getElementById("dealer-Cards");
    const playerDOM = document.getElementById("player-Cards");
@@ -103,8 +117,8 @@ fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=7')
      count++;
    }
  
-   document.querySelector("#player-Count").innerText = `Count: ${player}`
-   document.querySelector("#dealer-Count").innerText = `Count: ${dealer}`
+   document.querySelector("#player-Count").innerText = `Player Count: ${player}`
+   document.querySelector("#dealer-Count").innerText = `Dealer Count: ${dealer}`
  
    //if player gets blackjack
    if(player === 21){
@@ -120,18 +134,22 @@ fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=7')
      if(dealer === 21){
        result("TIE");
      } else{
-       result("WIN")
+       result("WIN");
      }
    }
   }
 
   function hit(){
+    if(!gameActive){
+      alert("Please draw cards first!");
+      return;
+    }
    if(player < 21){ 
      player += cardVal(deck[count].value);
      let elem = document.createElement("img"); 
      elem.src = deck[count].image;
      document.querySelector("#player-Cards").append(elem);
-     document.querySelector("#player-Count").innerText = `Count: ${player}`;
+     document.querySelector("#player-Count").innerText = `Player Count: ${player}`;
      removeCard();
      count++;
    }
@@ -139,24 +157,28 @@ fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=7')
      stay();
    }
    if(player > 21){
-     result("LOSE")
+     result("LOSE");
    }
   }
  
   function stay(){
+  if(!gameActive){
+      alert("Please draw cards first!");
+      return;
+    }
    while(dealer < player){
      dealer += cardVal(deck[count].value);
      let elem = document.createElement("img"); 
      elem.src = deck[count].image;
      document.querySelector("#dealer-Cards").append(elem);
-     document.querySelector("#dealer-Count").innerText = `Count: ${dealer}`
+     document.querySelector("#dealer-Count").innerText = `Dealer Count: ${dealer}`
      removeCard();
      count++;
    }
    if(dealer > 21){
      result("WIN")
    } else{
-     result("LOSE")
+    result("LOSE");
    }
   }
 
@@ -165,25 +187,29 @@ fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=7')
      account += bet;
      localStorage.setItem("credits", account);
      document.querySelector("#credits").innerText = `Credits: ${localStorage.getItem("credits")}`
-     alert("WIN")
+     document.querySelector("#dealer-Count").innerText = `Dealer Count: ${dealer} Loser`
+     document.querySelector("#player-Count").innerText = `Player Count: ${player} Winner`;
     } else if(outcome === "LOSE"){
      account -= bet;
      localStorage.setItem("credits", account);
      document.querySelector("#credits").innerText = `Credits: ${localStorage.getItem("credits")}`
-     alert("LOSE")
+     document.querySelector("#dealer-Count").innerText = `Dealer Count: ${dealer} Winner`;
+     document.querySelector("#player-Count").innerText = `Player Count: ${player} Loser`;
     } else {
-      alert("TIE")
+      document.querySelector("#dealer-Count").innerText = `Dealer Count: ${dealer} TIE`;
+      document.querySelector("#player-Count").innerText = `Player Count: ${player} TIE`;
     }
     count = 0;
     dealer = 0;
     player = 0;
+    gameActive = false;
     if(account <= 0){
       alert("insufficient funds!");
       bet = 0;
       document.querySelector("#betSize").innerText = `Bet Size: ${bet}`;
     }
     if(deck.length < 20){
-      alert("Auto reshuffling cards!");
+      shuffleDeck();
     }
   }
 
@@ -192,7 +218,10 @@ fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=7')
   }
 
 //shuffle deck
-document.querySelector("#shuffle").addEventListener("click", shuffleDeck)
+
+window.onload = function() {
+  shuffleDeck();
+};
 
 //buttons increase/decrease bet
 document.querySelector("#addCredits").addEventListener("click", addCredits)

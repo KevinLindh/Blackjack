@@ -11,27 +11,29 @@
 		<link rel="stylesheet" href="css/stylesheet.css">
 	</head>
 	<body>
-		<button id="hit">HIT</button>
-		<button id="stay">STAY</button>
-		<h2 id="credits">Credits:</h2>
-		<h2 id="betSize">Bet Size: 100</h2>
-		<button id="shuffle">Shuffle</button>
-		<h3 id="cardsInDeck"></h3>
-		<button id="increase">Add 100 to bet</button>
-		<button id="decrease">Decrease bet by 100</button>
-		<button id="addCredits" type="button" name="button" class="hide">Add 1000 credits</button>
-		<h2>Dealer</h2>
+		<div class="bank">
+			<h2 id="credits">Credits:</h2>
+			<h2 id="betSize">Bet Size: 100</h2>
+			<h3 id="cardsInDeck">Cards left: 0</h3>
+			<button id="increase">Add 100 to bet</button>
+			<button id="decrease">Decrease bet by 100</button>
+			<button id="addCredits" type="button" name="button" class="hide">Add 1000 credits</button>
+		</div>
+		<h2 id="dealer-Count">Dealer</h2>
 		<div id="dealer-Cards">
+			<img src="images\cardback.png" class="placeholder">
+			<img src="images\cardback.png" class="placeholder">
 		</div>
-		<h3 id="dealer-Count"></h3>
-		<button id="dealCards" type="button" name="button">Draw Cards</button>
-		<h2>Player</h2>
+		<div class="gamblebtns">
+			<a id="hit" class="gamble">HIT</a>
+			<a id="dealCards" class="gamble">Draw Cards</a>
+			<a id="stay" class="gamble">STAY</a>
+		</div>
+		<h2 id="player-Count">Player</h2>
 		<div id="player-Cards">
-
+			<img src="images\cardback.png" class="placeholder">
+			<img src="images\cardback.png" class="placeholder">
 		</div>
-		<h3 id="player-Count"></h3>
-		
-
 		<script type="text/javascript" src="js/main.js"></script>
 	</body>
 </html>

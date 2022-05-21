@@ -1,0 +1,85 @@
+body{
+    background-color: darkgreen;
+}
+/*
+button styling
+*/
+
+.gamble{
+    padding: 30px 30px;
+    font-size: 15px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: white;
+    background-color: #5d5a5d;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 5px #3e3530;
+    margin: 5px 0;
+    font-size: large;
+    margin: 15px;
+}
+
+.gamble:hover{
+    cursor: pointer;
+    background-color: red;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.gamble:active{
+    cursor: pointer;
+    background-color: greenyellow;
+    transform: translateY(5px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.gamblebtns{
+    display: flex;
+    justify-content: space-around;
+}
+/*
+data
+*/
+
+.bank{
+    text-align: center;
+    width: 30%;
+    background-color: #5d5a5d;
+    color: white;
+    border: black 10px solid;
+}
+
+#dealer-Count{
+    width: 20%;
+    text-align: center;
+    margin: auto;
+    padding: 10px;
+}
+
+#player-Count{
+    width: 20%;
+    text-align: center;
+    margin: auto;
+    padding: 10px;
+}
+
+/*
+Cards
+*/
+
+img{
+    height: 250px;
+}
+
+#dealer-Cards{
+    display: flex;
+    justify-content: center;
+    max-height: 250px;
+}
+
+#player-Cards{
+    display: flex;
+    justify-content: center;
+    max-height: 250px;
+}
